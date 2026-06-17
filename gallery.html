@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery | Saint Thekla Melkite Catholic Community</title>
+    <meta
+      name="description"
+      content="Photo gallery for Saint Thekla Melkite Catholic Community, with a Facebook photo sync workflow for FTP updates."
+    />
+    <link rel="icon" type="image/jpeg" href="./assets/hero-emblem.jpg?v=4" />
+    <link rel="apple-touch-icon" href="./assets/hero-emblem.jpg?v=4" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="./index.html" aria-label="Saint Thekla Melkite Catholic Community home">
+        <img src="./assets/hero-emblem.jpg" alt="Saint Thekla Melkite Catholic Community emblem" />
+        <span>Saint Thekla</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="main-nav" data-nav>
+        <a href="./index.html">Home</a>
+        <a href="./calendar.html">Calendar</a>
+        <a href="./bishop.html">Bishop</a>
+        <a href="./gallery.html">Gallery</a>
+        <a href="./index.html#visit">Visit</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="subpage-hero">
+        <p class="eyebrow">Gallery</p>
+        <h1>Community photos in one place.</h1>
+        <p>Photos can be updated from the Facebook Page through the included Meta Graph API sync script, then uploaded by FTP.</p>
+      </section>
+
+      <section class="gallery-tools">
+        <div>
+          <p class="eyebrow">Facebook Photo Workflow</p>
+          <h2>A real FTP-friendly gallery pipeline.</h2>
+          <p>
+            Static FTP hosting cannot securely call Facebook directly from a visitor’s browser. Instead, use the included script
+            <code>tools/facebook-gallery-sync.js</code> with a Meta Page access token. It downloads Facebook Page photos into
+            <code>assets/facebook-gallery/</code> and writes <code>gallery/data/photos.json</code>.
+          </p>
+        </div>
+        <ol>
+          <li>Create or use a Meta app with permission to read the Page photos.</li>
+          <li>Run the sync script locally with <code>FACEBOOK_PAGE_ID</code> and <code>FACEBOOK_ACCESS_TOKEN</code>.</li>
+          <li>Upload the updated <code>assets/facebook-gallery/</code> folder and <code>gallery/data/photos.json</code> by FTP.</li>
+        </ol>
+      </section>
+
+      <section class="gallery-page-section">
+        <div class="section-heading">
+          <p class="eyebrow">Photo Gallery</p>
+          <h2>Latest community images</h2>
+        </div>
+        <div class="facebook-gallery" data-gallery>
+          <p>Loading gallery photos...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Saint Thekla Melkite Catholic Community</strong>
+        <span>Divine Liturgy every other Sunday at 12:00 PM</span>
+      </div>
+      <div>
+        <span>Prince of Peace Catholic Church, Jacksonville, FL</span>
+        <a href="mailto:info@jaxmelkites.org">info@jaxmelkites.org</a>
+      </div>
+    </footer>
+    <button class="back-to-top" type="button" aria-label="Back to top" data-top>↑</button>
+    <script src="./script.js"></script>
+    <script src="./gallery.js"></script>
+  </body>
+</html>
