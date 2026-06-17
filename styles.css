@@ -712,11 +712,15 @@ section {
   display: block;
   margin-bottom: 4px;
   color: var(--gold-light);
+  font-size: 1rem;
+  line-height: 1.2;
 }
 
 .cookie-banner p {
   margin: 0;
   color: rgba(255, 248, 232, 0.78);
+  font-size: 0.95rem;
+  line-height: 1.45;
 }
 
 .cookie-actions {
@@ -954,20 +958,36 @@ section {
   }
 
   .cookie-banner {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
+    left: 14px;
+    right: 14px;
+    bottom: calc(14px + env(safe-area-inset-bottom));
     grid-template-columns: 1fr;
-    padding: 16px;
+    gap: 12px;
+    max-width: none;
+    padding: 14px;
+    border-radius: 20px;
   }
 
   .cookie-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 8px;
   }
 
   .cookie-actions button {
     width: 100%;
+    min-height: 42px;
+    padding: 9px 12px;
+    font-size: 0.95rem;
+  }
+
+  .cookie-banner strong {
+    font-size: 0.98rem;
+  }
+
+  .cookie-banner p {
+    font-size: 0.86rem;
+    line-height: 1.38;
   }
 }
 
@@ -995,6 +1015,16 @@ section {
 
   .hero-copy {
     padding-inline: 14px;
+  }
+
+  .cookie-banner {
+    left: 10px;
+    right: 10px;
+    padding: 12px;
+  }
+
+  .cookie-banner p {
+    font-size: 0.82rem;
   }
 
 }
