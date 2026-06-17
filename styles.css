@@ -140,10 +140,7 @@ section {
 
 .hero {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(320px, 520px);
-  gap: 48px;
-  align-items: center;
+  display: block;
   width: min(1220px, calc(100% - 40px));
   margin: 0 auto;
   padding: 76px 0 92px;
@@ -255,34 +252,6 @@ section {
 
 .compact-button {
   margin-top: 22px;
-}
-
-.hero-image {
-  position: relative;
-}
-
-.hero-image::before,
-.hero-image::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-}
-
-.hero-image::before {
-  inset: -20px;
-  border: 1px solid rgba(242, 211, 138, 0.42);
-}
-
-.hero-image::after {
-  inset: -48px;
-  border: 1px solid rgba(242, 211, 138, 0.16);
-}
-
-.hero-image img {
-  width: 100%;
-  border: 1px solid rgba(242, 211, 138, 0.45);
-  border-radius: 50%;
-  box-shadow: 0 38px 110px rgba(0, 0, 0, 0.38);
 }
 
 .schedule-card,
@@ -775,7 +744,6 @@ section {
 }
 
 @media (max-width: 980px) {
-  .hero,
   .schedule-card,
   .welcome-section,
   .melkite-section,
@@ -792,10 +760,6 @@ section {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .hero-image {
-    max-width: 520px;
-    margin: 0 auto;
-  }
 }
 
 @media (max-width: 720px) {
@@ -864,9 +828,7 @@ section {
   }
 
   .hero {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 22px;
+    display: block;
     width: calc(100% - 24px);
     margin: 0 auto;
     padding: 28px 0 48px;
@@ -916,20 +878,6 @@ section {
     font-size: clamp(2.35rem, 11vw, 3.7rem);
     line-height: 1;
     overflow-wrap: anywhere;
-  }
-
-  .hero-image {
-    width: min(72vw, 290px);
-    max-width: none;
-    margin: 34px auto 0;
-  }
-
-  .hero-image::before {
-    inset: -10px;
-  }
-
-  .hero-image::after {
-    display: none;
   }
 
   .quick-facts {
@@ -1048,7 +996,4 @@ section {
     padding-inline: 14px;
   }
 
-  .hero-image {
-    width: min(70vw, 250px);
-  }
 }
