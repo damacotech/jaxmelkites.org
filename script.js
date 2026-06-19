@@ -72,13 +72,7 @@ function createEventPopup() {
   }
 
   popup.addEventListener("click", (event) => {
-    if (event.target === popup || event.target.closest("[data-event-close], [data-event-info]")) {
-      closePopup();
-    }
-  });
-
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && document.body.contains(popup)) {
+    if (event.target.closest("[data-event-close]")) {
       closePopup();
     }
   });
