@@ -257,6 +257,18 @@ section {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.button.whatsapp-button {
+  flex-basis: 100%;
+  color: #062814;
+  background: #62d58a;
+  box-shadow: 0 18px 42px rgba(35, 176, 91, 0.24);
+}
+
+.button.whatsapp-button:hover {
+  color: #031a0c;
+  background: #83e4a5;
+}
+
 .button.dark {
   margin-top: 28px;
   color: white;
