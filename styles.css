@@ -106,6 +106,18 @@ section {
   background: rgba(255, 255, 255, 0.12);
 }
 
+.main-nav .whatsapp-link {
+  margin-left: 4px;
+  color: #062814;
+  background: #62d58a;
+  box-shadow: 0 8px 24px rgba(35, 176, 91, 0.24);
+}
+
+.main-nav .whatsapp-link:hover {
+  color: #031a0c;
+  background: #83e4a5;
+}
+
 .menu-toggle {
   display: none;
   width: 46px;
@@ -805,6 +817,11 @@ section {
 
   .main-nav.is-open {
     display: flex;
+  }
+
+  .main-nav .whatsapp-link {
+    margin: 4px 0 0;
+    text-align: center;
   }
 
   .brand span {
