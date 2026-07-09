@@ -36,13 +36,14 @@ Facebook gallery sync
 =====================
 
 Static FTP hosting cannot safely call Facebook directly from a visitor's browser because the Meta access token must remain private.
-This package includes a real sync workflow instead:
+This package includes a real sync workflow and 36 locally downloaded Page photos:
 
-1. Get a Meta Graph API Page access token for the church Facebook Page.
+1. Get a Meta Graph API access token for an account that manages the Page, or use a Page access token.
 2. From the ftp-site-v2 folder, run:
 
-   FACEBOOK_PAGE_ID="your-page-id" FACEBOOK_ACCESS_TOKEN="your-token" node tools/facebook-gallery-sync.js
+   FACEBOOK_PAGE_ID="100485784851211" FACEBOOK_ACCESS_TOKEN="your-token" node tools/facebook-gallery-sync.js
 
 3. Upload the updated assets/facebook-gallery/ folder and gallery/data/photos.json by FTP.
 
-The public gallery page reads gallery/data/photos.json and displays those downloaded photos.
+The script securely derives a Page token in memory when given a managing user's token. It never writes the token to disk.
+The public gallery reads gallery/data/photos.json, displays the downloaded images, and links each photo to its Facebook source.

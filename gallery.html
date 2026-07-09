@@ -6,13 +6,13 @@
     <title>Gallery | Saint Thekla Melkite Catholic Community</title>
     <meta
       name="description"
-      content="Photo gallery for Saint Thekla Melkite Catholic Community, with a Facebook photo sync workflow for FTP updates."
+      content="See worship, fellowship, and community life at Saint Thekla Melkite Catholic Community in Jacksonville, Florida."
     />
     <link rel="icon" type="image/jpeg" href="./assets/hero-emblem.jpg?v=4" />
     <link rel="apple-touch-icon" href="./assets/hero-emblem.jpg?v=4" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
+  <body class="gallery-page">
     <header class="site-header" data-header>
       <a class="brand" href="./index.html" aria-label="Saint Thekla Melkite Catholic Community home">
         <img src="./assets/hero-emblem.jpg" alt="Saint Thekla Melkite Catholic Community emblem" />
@@ -39,39 +39,52 @@
     </header>
 
     <main>
-      <section class="subpage-hero">
-        <p class="eyebrow">Gallery</p>
-        <h1>Community photos in one place.</h1>
-        <p>Photos can be updated from the Facebook Page through the included Meta Graph API sync script, then uploaded by FTP.</p>
-      </section>
-
-      <section class="gallery-tools">
-        <div>
-          <p class="eyebrow">Facebook Photo Workflow</p>
-          <h2>A real FTP-friendly gallery pipeline.</h2>
-          <p>
-            Static FTP hosting cannot securely call Facebook directly from a visitor’s browser. Instead, use the included script
-            <code>tools/facebook-gallery-sync.js</code> with a Meta Page access token. It downloads Facebook Page photos into
-            <code>assets/facebook-gallery/</code> and writes <code>gallery/data/photos.json</code>.
-          </p>
+      <section class="gallery-hero">
+        <div class="gallery-hero-copy">
+          <p class="eyebrow">Community Gallery</p>
+          <h1>Life at Saint Thekla.</h1>
+          <p>Divine Liturgy, sacred tradition, shared meals, and the people building a Melkite Catholic home in Jacksonville.</p>
+          <div class="gallery-hero-actions">
+            <a
+              class="button primary"
+              href="https://www.facebook.com/MelkiteCatholicsInJacksonville/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >Follow on Facebook</a>
+            <span data-gallery-count>Loading the latest photos...</span>
+          </div>
         </div>
-        <ol>
-          <li>Create or use a Meta app with permission to read the Page photos.</li>
-          <li>Run the sync script locally with <code>FACEBOOK_PAGE_ID</code> and <code>FACEBOOK_ACCESS_TOKEN</code>.</li>
-          <li>Upload the updated <code>assets/facebook-gallery/</code> folder and <code>gallery/data/photos.json</code> by FTP.</li>
-        </ol>
       </section>
 
       <section class="gallery-page-section">
-        <div class="section-heading">
-          <p class="eyebrow">Photo Gallery</p>
-          <h2>Latest community images</h2>
+        <div class="gallery-section-heading">
+          <div>
+            <p class="eyebrow">Recent Moments</p>
+            <h2>Worship, fellowship, and parish life.</h2>
+          </div>
+          <p>Choose any photo to view it larger. Every image links back to its original Facebook post.</p>
         </div>
         <div class="facebook-gallery" data-gallery>
-          <p>Loading gallery photos...</p>
+          <p class="gallery-loading">Loading gallery photos...</p>
         </div>
       </section>
     </main>
+
+    <div class="gallery-lightbox" data-gallery-lightbox hidden>
+      <div class="gallery-lightbox-dialog" role="dialog" aria-modal="true" aria-labelledby="gallery-lightbox-caption">
+        <button class="gallery-lightbox-close" type="button" aria-label="Close photo viewer" title="Close" data-gallery-close>&times;</button>
+        <button class="gallery-lightbox-nav previous" type="button" aria-label="Previous photo" title="Previous photo" data-gallery-previous>&larr;</button>
+        <figure>
+          <img src="" alt="" data-gallery-lightbox-image />
+          <figcaption>
+            <time data-gallery-lightbox-date></time>
+            <p id="gallery-lightbox-caption" dir="auto" data-gallery-lightbox-caption></p>
+            <a href="#" target="_blank" rel="noopener noreferrer" data-gallery-lightbox-link>View original on Facebook</a>
+          </figcaption>
+        </figure>
+        <button class="gallery-lightbox-nav next" type="button" aria-label="Next photo" title="Next photo" data-gallery-next>&rarr;</button>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div>
