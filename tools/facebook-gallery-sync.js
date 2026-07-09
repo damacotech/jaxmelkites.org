@@ -111,6 +111,25 @@ async function downloadImage(url, filenameBase) {
   return `assets/facebook-gallery/${filename}`;
 }
 
+async function readExistingPhotos() {
+  try {
+    const content = await fs.readFile(dataFile, "utf8");
+    const photos = JSON.parse(content);
+    return Array.isArray(photos) ? photos : [];
+  } catch {
+    return [];
+  }
+}
+
+async function fileExists(filename) {
+  try {
+    await fs.access(filename);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function main() {
   await fs.mkdir(outputDir, { recursive: true });
   await fs.mkdir(path.dirname(dataFile), { recursive: true });
@@ -133,12 +152,27 @@ async function main() {
   }
 
   const photos = [];
+  const existingPhotos = await readExistingPhotos();
+  const existingPhotosById = new Map(
+    existingPhotos.map((photo) => [photo.facebookId, photo]),
+  );
+  let downloadedCount = 0;
 
   for (const photo of payload.data) {
     const bestImage = selectGalleryImage(photo.images);
     if (!bestImage?.source) continue;
 
-    const src = await downloadImage(bestImage.source, photo.id);
+    const existingPhoto = existingPhotosById.get(photo.id);
+    const existingPath = existingPhoto?.src
+      ? path.join(process.cwd(), existingPhoto.src)
+      : null;
+    const canReuseExisting =
+      existingPath && (await fileExists(existingPath));
+    const src = canReuseExisting
+      ? existingPhoto.src
+      : await downloadImage(bestImage.source, photo.id);
+    if (!canReuseExisting) downloadedCount += 1;
+
     photos.push({
       src,
       caption: safeCaption(photo.name),
@@ -166,6 +200,7 @@ async function main() {
 
   await fs.writeFile(dataFile, `${JSON.stringify(photos, null, 2)}\n`);
   console.log(`Synced ${photos.length} Facebook photos from ${page.name}.`);
+  console.log(`Downloaded ${downloadedCount} new photo files.`);
   console.log(`Wrote ${dataFile}`);
 }
 

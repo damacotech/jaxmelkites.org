@@ -1,0 +1,64 @@
+name: Sync Facebook gallery
+
+on:
+  schedule:
+    - cron: "2/5 * * * *"
+  workflow_dispatch:
+  repository_dispatch:
+    types: [facebook-gallery-update]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: facebook-gallery-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-gallery:
+    runs-on: ubuntu-latest
+    env:
+      FACEBOOK_PAGE_ID: "100485784851211"
+      FACEBOOK_ACCESS_TOKEN: ${{ secrets.FACEBOOK_ACCESS_TOKEN }}
+      FACEBOOK_GRAPH_VERSION: "v24.0"
+      FACEBOOK_PHOTO_LIMIT: "36"
+
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check Facebook token
+        id: facebook-token
+        shell: bash
+        run: |
+          if [[ -n "$FACEBOOK_ACCESS_TOKEN" ]]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Add FACEBOOK_ACCESS_TOKEN in repository Actions secrets to enable automatic gallery syncing."
+          fi
+
+      - name: Pull latest Facebook photos
+        if: steps.facebook-token.outputs.available == 'true'
+        run: node tools/facebook-gallery-sync.js
+
+      - name: Commit gallery updates
+        if: steps.facebook-token.outputs.available == 'true'
+        shell: bash
+        run: |
+          git add assets/facebook-gallery gallery/data/photos.json
+          if git diff --cached --quiet; then
+            echo "Gallery is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update Facebook gallery"
+          git pull --rebase origin main
+          git push origin HEAD:main

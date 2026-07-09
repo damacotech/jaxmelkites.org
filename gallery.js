@@ -4,7 +4,6 @@ const lightbox = document.querySelector("[data-gallery-lightbox]");
 const lightboxImage = document.querySelector("[data-gallery-lightbox-image]");
 const lightboxCaption = document.querySelector("[data-gallery-lightbox-caption]");
 const lightboxDate = document.querySelector("[data-gallery-lightbox-date]");
-const lightboxLink = document.querySelector("[data-gallery-lightbox-link]");
 let galleryPhotos = [];
 let activePhotoIndex = 0;
 
@@ -44,7 +43,6 @@ function updateLightbox(index) {
   lightboxCaption.textContent = photo.caption || "Saint Thekla community photo";
   lightboxDate.textContent = formatDate(photo.createdTime);
   lightboxDate.dateTime = photo.createdTime || "";
-  lightboxLink.href = photo.facebookUrl || photo.src;
 }
 
 function openLightbox(index) {
@@ -113,17 +111,16 @@ async function loadGallery() {
       ...galleryPhotos.map((photo, index) => createPhotoCard(photo, index)),
     );
     if (galleryCount) {
-      galleryCount.textContent = `${galleryPhotos.length} recent Facebook photos`;
+      galleryCount.textContent = `${galleryPhotos.length} community photos`;
     }
   } catch (error) {
     galleryRoot.innerHTML = `
       <div class="gallery-empty">
-        <h3>Visit our Facebook gallery.</h3>
+        <h3>Gallery temporarily unavailable.</h3>
         <p>The local photo gallery is temporarily unavailable.</p>
-        <a href="https://www.facebook.com/MelkiteCatholicsInJacksonville/" target="_blank" rel="noopener noreferrer">Open Saint Thekla on Facebook</a>
       </div>
     `;
-    if (galleryCount) galleryCount.textContent = "Facebook gallery";
+    if (galleryCount) galleryCount.textContent = "Community gallery";
   }
 }
 

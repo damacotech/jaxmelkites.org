@@ -46,4 +46,20 @@ This package includes a real sync workflow and 36 locally downloaded Page photos
 3. Upload the updated assets/facebook-gallery/ folder and gallery/data/photos.json by FTP.
 
 The script securely derives a Page token in memory when given a managing user's token. It never writes the token to disk.
-The public gallery reads gallery/data/photos.json, displays the downloaded images, and links each photo to its Facebook source.
+The public gallery reads gallery/data/photos.json and opens each locally hosted image in an on-site photo viewer.
+
+Automatic GitHub updates
+========================
+
+The GitHub repository includes .github/workflows/sync-facebook-gallery.yml.
+It checks Facebook every five minutes and commits only when the gallery changes.
+
+In GitHub, add the token at:
+
+Settings > Secrets and variables > Actions > New repository secret
+
+Name the secret:
+
+FACEBOOK_ACCESS_TOKEN
+
+Never paste the access token into this website folder or commit it to Git.

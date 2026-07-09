@@ -740,13 +740,6 @@ section {
   color: var(--navy);
 }
 
-.gallery-empty a {
-  display: inline-flex;
-  margin-top: 12px;
-  color: var(--navy);
-  font-weight: 900;
-}
-
 .gallery-open {
   overflow: hidden;
 }
@@ -811,11 +804,6 @@ section {
   color: white;
   line-height: 1.65;
   unicode-bidi: plaintext;
-}
-
-.gallery-lightbox figcaption a {
-  color: var(--gold-light);
-  font-weight: 900;
 }
 
 .gallery-lightbox-close,
