@@ -3,6 +3,7 @@ const menuToggle = document.querySelector("[data-menu-toggle]");
 const nav = document.querySelector("[data-nav]");
 const topButton = document.querySelector("[data-top]");
 const cookieStorageKey = "saintTheklaCookieChoice";
+const eventPopupImage = "assets/divine-liturgy-july-19-2026.jpg";
 
 function syncChrome() {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -38,6 +39,42 @@ function createCookieBanner() {
   document.body.appendChild(banner);
 }
 
+function createEventPopup() {
+  const popup = document.createElement("section");
+  popup.className = "event-popup";
+  popup.setAttribute("role", "dialog");
+  popup.setAttribute("aria-modal", "true");
+  popup.setAttribute("aria-label", "Divine Liturgy invitation");
+  popup.innerHTML = `
+    <div class="event-popup-dialog">
+      <button type="button" class="event-popup-close" data-event-popup-close aria-label="Close popup">×</button>
+      <img class="event-popup-image" src="${eventPopupImage}" alt="Saint Thekla Divine Liturgy invitation for Sunday July 19 2026 at 12:00 PM at Prince of Peace Catholic Church">
+    </div>
+  `;
+
+  const closePopup = () => {
+    popup.classList.add("is-hiding");
+    document.body.classList.remove("has-event-popup");
+    window.removeEventListener("keydown", handleKeydown);
+    window.setTimeout(() => popup.remove(), 180);
+  };
+
+  function handleKeydown(event) {
+    if (event.key === "Escape") closePopup();
+  }
+
+  popup.addEventListener("click", (event) => {
+    if (event.target === popup || event.target.closest("[data-event-popup-close]")) {
+      closePopup();
+    }
+  });
+
+  document.body.appendChild(popup);
+  document.body.classList.add("has-event-popup");
+  window.requestAnimationFrame(() => popup.classList.add("is-visible"));
+  window.addEventListener("keydown", handleKeydown);
+}
+
 menuToggle.addEventListener("click", () => {
   const isOpen = nav.classList.toggle("is-open");
   menuToggle.setAttribute("aria-expanded", String(isOpen));
@@ -54,4 +91,5 @@ topButton.addEventListener("click", () => {
 
 window.addEventListener("scroll", syncChrome, { passive: true });
 syncChrome();
+createEventPopup();
 createCookieBanner();
