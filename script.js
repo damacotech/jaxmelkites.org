@@ -4,6 +4,7 @@ const nav = document.querySelector("[data-nav]");
 const topButton = document.querySelector("[data-top]");
 const cookieStorageKey = "saintTheklaCookieChoice";
 const eventPopupImage = "assets/divine-liturgy-july-19-2026.jpg";
+const eventPopupExpiresAt = Date.parse("2026-07-20T00:00:00-04:00");
 
 function syncChrome() {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -40,6 +41,9 @@ function createCookieBanner() {
 }
 
 function createEventPopup() {
+  const eventPopupExpiresIn = eventPopupExpiresAt - Date.now();
+  if (eventPopupExpiresIn <= 0) return;
+
   const popup = document.createElement("section");
   popup.className = "event-popup";
   popup.setAttribute("role", "dialog");
@@ -52,7 +56,13 @@ function createEventPopup() {
     </div>
   `;
 
+  let expirationTimer;
+  let isClosing = false;
+
   const closePopup = () => {
+    if (isClosing) return;
+    isClosing = true;
+    window.clearTimeout(expirationTimer);
     popup.classList.add("is-hiding");
     document.body.classList.remove("has-event-popup");
     window.removeEventListener("keydown", handleKeydown);
@@ -73,6 +83,7 @@ function createEventPopup() {
   document.body.classList.add("has-event-popup");
   window.requestAnimationFrame(() => popup.classList.add("is-visible"));
   window.addEventListener("keydown", handleKeydown);
+  expirationTimer = window.setTimeout(closePopup, eventPopupExpiresIn);
 }
 
 menuToggle.addEventListener("click", () => {
