@@ -3,8 +3,8 @@ const menuToggle = document.querySelector("[data-menu-toggle]");
 const nav = document.querySelector("[data-nav]");
 const topButton = document.querySelector("[data-top]");
 const cookieStorageKey = "saintTheklaCookieChoice";
-const eventPopupImage = "assets/divine-liturgy-july-19-2026.jpg";
-const eventPopupExpiresAt = Date.parse("2026-07-20T00:00:00-04:00");
+const eventPopupImage = "assets/paraklesis-service-august-1-2026.jpg";
+const eventPopupExpiresAt = Date.parse("2026-08-02T00:00:00-04:00");
 
 function syncChrome() {
   header.classList.toggle("is-scrolled", window.scrollY > 24);
@@ -48,11 +48,11 @@ function createEventPopup() {
   popup.className = "event-popup";
   popup.setAttribute("role", "dialog");
   popup.setAttribute("aria-modal", "true");
-  popup.setAttribute("aria-label", "Divine Liturgy invitation");
+  popup.setAttribute("aria-label", "Paraklesis Service invitation");
   popup.innerHTML = `
     <div class="event-popup-dialog">
       <button type="button" class="event-popup-close" data-event-popup-close aria-label="Close popup">×</button>
-      <img class="event-popup-image" src="${eventPopupImage}" alt="Saint Thekla Divine Liturgy invitation for Sunday July 19 2026 at 12:00 PM at Prince of Peace Catholic Church">
+      <img class="event-popup-image" src="${eventPopupImage}" alt="Saint Thekla Paraklesis Service invitation for Saturday August 1 2026 at 6:30 PM at Christ the Prince of Peace">
     </div>
   `;
 
