@@ -43,8 +43,8 @@
       <section class="top-banner cinematic-banner" aria-label="Saint Thekla Melkite Catholic Community banner">
         <img src="./assets/header-banner.jpg" alt="Saint Thekla Melkite Catholic Community in Jacksonville, Florida" />
         <div class="banner-callout" aria-label="Next Divine Liturgy">
-          <span>This Sunday</span>
-          <strong>July 19 • 12:00 PM</strong>
+          <span data-next-liturgy-label>Next Divine Liturgy</span>
+          <strong data-next-liturgy-short>August 2 • 12:00 PM</strong>
         </div>
       </section>
 
@@ -57,7 +57,7 @@
           </p>
           <div class="quick-facts" aria-label="Divine Liturgy quick facts">
             <span>Divine Liturgy</span>
-            <span>Sunday, July 19</span>
+            <span data-next-liturgy-day>Sunday, August 2</span>
             <span>12:00 PM</span>
             <span>Prince of Peace</span>
           </div>
@@ -72,7 +72,7 @@
           <img src="./assets/hero-emblem.jpg" alt="Saint Thekla Melkite Catholic Community icon emblem" />
           <div class="next-liturgy-card">
             <p class="eyebrow">Next Divine Liturgy</p>
-            <h2>Sunday, July 19</h2>
+            <h2 data-next-liturgy-day>Sunday, August 2</h2>
             <dl>
               <div>
                 <dt>Time</dt>
@@ -87,7 +87,7 @@
                 <dd>6320 Bennett Rd, Jacksonville, FL 32216</dd>
               </div>
             </dl>
-            <a class="button primary" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Saint%20Thekla%20Divine%20Liturgy&dates=20260719T160000Z/20260719T170000Z&details=Melkite%20Catholic%20Divine%20Liturgy%20with%20Saint%20Thekla%20Melkite%20Catholic%20Community.&location=Prince%20of%20Peace%20Catholic%20Church%2C%206320%20Bennett%20Rd%2C%20Jacksonville%2C%20FL%2032216" target="_blank" rel="noopener noreferrer">Add to Calendar</a>
+            <a class="button primary" data-next-liturgy-calendar href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Saint%20Thekla%20Divine%20Liturgy&dates=20260802T120000/20260802T130000&ctz=America%2FNew_York&details=Melkite%20Catholic%20Divine%20Liturgy%20with%20Saint%20Thekla%20Melkite%20Catholic%20Community.&location=Prince%20of%20Peace%20Catholic%20Church%2C%206320%20Bennett%20Rd%2C%20Jacksonville%2C%20FL%2032216" target="_blank" rel="noopener noreferrer">Add to Calendar</a>
           </div>
         </aside>
       </section>
@@ -102,14 +102,9 @@
             <a class="button cream compact-button" href="https://www.google.com/maps/search/?api=1&query=Prince%20of%20Peace%20Catholic%20Church%206320%20Bennett%20Rd%20Jacksonville%20FL%2032216" target="_blank" rel="noopener noreferrer">Open Map</a>
           </div>
         </div>
-        <div class="date-list" aria-label="Upcoming Divine Liturgy dates">
+        <div class="date-list" data-upcoming-liturgies data-count="4" aria-label="Upcoming Divine Liturgy dates">
           <article>
             <span>Next</span>
-            <strong>July 19, 2026</strong>
-            <small>12:00 PM</small>
-          </article>
-          <article>
-            <span>Upcoming</span>
             <strong>August 2, 2026</strong>
             <small>12:00 PM</small>
           </article>
@@ -121,6 +116,11 @@
           <article>
             <span>Upcoming</span>
             <strong>August 30, 2026</strong>
+            <small>12:00 PM</small>
+          </article>
+          <article>
+            <span>Upcoming</span>
+            <strong>September 13, 2026</strong>
             <small>12:00 PM</small>
           </article>
         </div>
