@@ -1,11 +1,4 @@
 const bulletinsList = document.querySelector("[data-bulletins-list]");
-const previewModal = document.querySelector("[data-bulletin-modal]");
-const previewFrame = document.querySelector("[data-bulletin-preview]");
-const previewTitle = document.querySelector("[data-bulletin-preview-title]");
-const previewDate = document.querySelector("[data-bulletin-preview-date]");
-const previewDownload = document.querySelector("[data-bulletin-download]");
-const previewClose = document.querySelector("[data-bulletin-close]");
-let activeBulletinButton = null;
 
 const bulletinDateFormatter = new Intl.DateTimeFormat("en-US", {
   weekday: "long",
@@ -25,6 +18,12 @@ function formatBulletinDate(value) {
   return date ? bulletinDateFormatter.format(date) : "Date not set";
 }
 
+function getBulletinFileName(bulletin) {
+  const fallbackName = "saint-thekla-bulletin.pdf";
+  const pathName = String(bulletin.pdf || "").split("/").pop();
+  return pathName || fallbackName;
+}
+
 function normalizeBulletins(items) {
   return items
     .filter((item) => item && item.date && item.pdf)
@@ -35,61 +34,43 @@ function normalizeBulletins(items) {
     });
 }
 
-function openBulletin(bulletin, button) {
-  const title = bulletin.title || "Parish Bulletin";
-  const date = formatBulletinDate(bulletin.date);
+function openAndDownloadBulletin(bulletin) {
+  window.open(bulletin.pdf, "_blank", "noopener,noreferrer");
 
-  previewTitle.textContent = title;
-  previewDate.textContent = date;
-  previewFrame.src = bulletin.pdf;
-  previewDownload.href = bulletin.pdf;
-
-  bulletinsList
-    .querySelectorAll(".bulletin-card.is-active")
-    .forEach((activeButton) => activeButton.classList.remove("is-active"));
-
-  button.classList.add("is-active");
-  activeBulletinButton = button;
-  previewModal.hidden = false;
-  document.body.classList.add("bulletin-open");
-  previewClose?.focus();
-}
-
-function closeBulletin() {
-  if (!previewModal || previewModal.hidden) return;
-
-  previewModal.hidden = true;
-  previewFrame.src = "";
-  document.body.classList.remove("bulletin-open");
-  activeBulletinButton?.focus();
+  const downloadLink = document.createElement("a");
+  downloadLink.href = bulletin.pdf;
+  downloadLink.download = getBulletinFileName(bulletin);
+  document.body.append(downloadLink);
+  downloadLink.click();
+  downloadLink.remove();
 }
 
 function createBulletinCard(bulletin, index) {
   const button = document.createElement("button");
-  const preview = document.createElement("span");
-  const eyebrow = document.createElement("span");
-  const title = document.createElement("strong");
+  const image = document.createElement("img");
+  const details = document.createElement("span");
+  const label = document.createElement("span");
   const date = document.createElement("time");
-  const description = document.createElement("small");
   const action = document.createElement("span");
 
   button.type = "button";
   button.className = "bulletin-card";
-  button.setAttribute("aria-label", `Preview ${bulletin.title || "bulletin"} from ${formatBulletinDate(bulletin.date)}`);
+  button.setAttribute("aria-label", `Open and download bulletin from ${formatBulletinDate(bulletin.date)}`);
 
-  preview.className = "bulletin-card-preview";
-  preview.textContent = "PDF";
+  image.src = "./assets/hero-emblem.jpg";
+  image.alt = "";
+  image.loading = index === 0 ? "eager" : "lazy";
 
-  eyebrow.textContent = index === 0 ? "Latest" : "Bulletin";
-  title.textContent = bulletin.title || "Parish Bulletin";
+  details.className = "bulletin-card-details";
+  label.textContent = index === 0 ? "Latest bulletin" : "Bulletin";
   date.textContent = formatBulletinDate(bulletin.date);
   date.dateTime = bulletin.date;
-  description.textContent = bulletin.description || "Preview or download the PDF bulletin.";
   action.className = "bulletin-card-action";
-  action.textContent = "Open preview";
+  action.textContent = "Open PDF";
 
-  button.append(preview, eyebrow, title, date, description, action);
-  button.addEventListener("click", () => openBulletin(bulletin, button));
+  details.append(label, date, action);
+  button.append(image, details);
+  button.addEventListener("click", () => openAndDownloadBulletin(bulletin));
   return button;
 }
 
@@ -114,15 +95,5 @@ async function loadBulletins() {
     `;
   }
 }
-
-previewModal?.addEventListener("click", (event) => {
-  if (event.target === previewModal || event.target.closest("[data-bulletin-close]")) {
-    closeBulletin();
-  }
-});
-
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeBulletin();
-});
 
 loadBulletins();

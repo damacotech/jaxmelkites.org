@@ -6,7 +6,7 @@
     <title>Bulletins | Saint Thekla Melkite Catholic Community</title>
     <meta
       name="description"
-      content="Read and preview Saint Thekla Melkite Catholic Community bulletins by date."
+      content="Read and download Saint Thekla Melkite Catholic Community bulletins by date."
     />
     <link rel="icon" type="image/jpeg" href="./assets/hero-emblem.jpg?v=4" />
     <link rel="apple-touch-icon" href="./assets/hero-emblem.jpg?v=4" />
@@ -43,7 +43,7 @@
       <section class="subpage-hero bulletins-hero">
         <p class="eyebrow">Parish Bulletins</p>
         <h1>Bulletins organized by date.</h1>
-        <p>Browse bulletins by date, then open a clean on-site PDF preview when you want to read one.</p>
+        <p>Choose a dated bulletin to open the PDF in a new tab and download a copy.</p>
       </section>
 
       <section class="bulletins-page-section" data-bulletins-page>
@@ -51,7 +51,7 @@
           <div class="section-heading">
             <p class="eyebrow">Bulletin Archive</p>
             <h2>Latest first</h2>
-            <p>Tap a bulletin card to preview it without leaving the website.</p>
+            <p>Tap a date to open the bulletin PDF.</p>
           </div>
           <div class="bulletins-list" data-bulletins-list aria-label="Bulletin list">
             <article class="bulletin-empty">
@@ -62,21 +62,6 @@
         </div>
       </section>
     </main>
-
-    <div class="bulletin-modal" data-bulletin-modal hidden>
-      <div class="bulletin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="bulletin-modal-title">
-        <button class="bulletin-modal-close" type="button" aria-label="Close bulletin preview" title="Close" data-bulletin-close>&times;</button>
-        <div class="bulletin-modal-header">
-          <div>
-            <p class="eyebrow">PDF Preview</p>
-            <h2 id="bulletin-modal-title" data-bulletin-preview-title>Bulletin</h2>
-            <p data-bulletin-preview-date></p>
-          </div>
-          <a class="button primary compact-button" data-bulletin-download href="#" target="_blank" rel="noopener noreferrer">Download PDF</a>
-        </div>
-        <iframe data-bulletin-preview title="Bulletin PDF preview"></iframe>
-      </div>
-    </div>
 
     <footer class="site-footer">
       <div>
