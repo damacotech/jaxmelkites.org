@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bulletins | Saint Thekla Melkite Catholic Community</title>
+    <meta
+      name="description"
+      content="Read and preview Saint Thekla Melkite Catholic Community bulletins by date."
+    />
+    <link rel="icon" type="image/jpeg" href="./assets/hero-emblem.jpg?v=4" />
+    <link rel="apple-touch-icon" href="./assets/hero-emblem.jpg?v=4" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="./index.html" aria-label="Saint Thekla Melkite Catholic Community home">
+        <img src="./assets/hero-emblem.jpg" alt="Saint Thekla Melkite Catholic Community emblem" />
+        <span>Saint Thekla</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="main-nav" data-nav>
+        <a href="./index.html">Home</a>
+        <a href="./calendar.html">Calendar</a>
+        <a href="./bulletins.html">Bulletins</a>
+        <a href="./bishop.html">Bishop</a>
+        <a href="./gallery.html">Gallery</a>
+        <a href="./index.html#visit">Visit</a>
+        <a
+          class="whatsapp-link"
+          href="https://chat.whatsapp.com/I6FyS9nunFM1bxBYqRGiij"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Join our WhatsApp community"
+        >Join WhatsApp</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="subpage-hero bulletins-hero">
+        <p class="eyebrow">Parish Bulletins</p>
+        <h1>Bulletins organized by date.</h1>
+        <p>Preview the latest PDF bulletin directly on the site, download a copy, or browse older bulletins by date.</p>
+      </section>
+
+      <section class="bulletins-page-section" data-bulletins-page>
+        <div class="bulletins-index">
+          <div class="section-heading">
+            <p class="eyebrow">Bulletin Archive</p>
+            <h2>Latest first</h2>
+            <p>Each bulletin is listed by its service date. New bulletins can be added as PDFs and registered in the data file.</p>
+          </div>
+          <div class="bulletins-list" data-bulletins-list aria-label="Bulletin list">
+            <article class="bulletin-empty">
+              <h3>No bulletins have been added yet.</h3>
+              <p>Add PDFs to <code>assets/bulletins/</code> and register them in <code>bulletins/data/bulletins.json</code>.</p>
+            </article>
+          </div>
+        </div>
+
+        <aside class="bulletin-preview-card" aria-label="Bulletin PDF preview">
+          <div class="bulletin-preview-empty" data-bulletin-empty>
+            <p class="eyebrow">PDF Preview</p>
+            <h2>Select a bulletin</h2>
+            <p>When bulletins are added, selecting a date will show the PDF here without leaving the website.</p>
+          </div>
+          <div class="bulletin-preview-content" data-bulletin-preview-content hidden>
+            <div class="bulletin-preview-header">
+              <div>
+                <p class="eyebrow">PDF Preview</p>
+                <h2 data-bulletin-preview-title>Bulletin</h2>
+                <p data-bulletin-preview-date></p>
+              </div>
+              <a class="button primary compact-button" data-bulletin-download href="#" target="_blank" rel="noopener noreferrer">Download PDF</a>
+            </div>
+            <iframe data-bulletin-preview title="Bulletin PDF preview"></iframe>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Saint Thekla Melkite Catholic Community</strong>
+        <span>Divine Liturgy every other Sunday at 12:00 PM</span>
+      </div>
+      <div>
+        <span>Prince of Peace Catholic Church, Jacksonville, FL</span>
+        <a href="mailto:info@jaxmelkites.org">info@jaxmelkites.org</a>
+      </div>
+    </footer>
+    <button class="back-to-top" type="button" aria-label="Back to top" data-top>↑</button>
+    <script src="./script.js"></script>
+    <script src="./bulletins.js"></script>
+  </body>
+</html>

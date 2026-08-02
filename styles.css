@@ -711,11 +711,160 @@ section {
 }
 
 .calendar-page-section,
+.bulletins-page-section,
 .gallery-page-section,
 .bishop-detail {
   width: min(1220px, calc(100% - 40px));
   margin: 0 auto;
   padding: 76px 0;
+}
+
+.bulletins-page-section {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.bulletins-index,
+.bulletin-preview-card {
+  min-width: 0;
+}
+
+.bulletins-index {
+  display: grid;
+  gap: 22px;
+}
+
+.bulletins-list {
+  display: grid;
+  gap: 14px;
+}
+
+.bulletin-card,
+.bulletin-empty {
+  width: 100%;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 14px 42px rgba(27, 20, 12, 0.08);
+}
+
+.bulletin-card {
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.bulletin-card:hover,
+.bulletin-card.is-active {
+  border-color: rgba(217, 171, 84, 0.72);
+  box-shadow: 0 20px 54px rgba(27, 20, 12, 0.14);
+  transform: translateY(-2px);
+}
+
+.bulletin-card span,
+.bulletin-card strong,
+.bulletin-card time,
+.bulletin-card small,
+.bulletin-empty h3,
+.bulletin-empty p {
+  display: block;
+}
+
+.bulletin-card span {
+  color: var(--gold);
+  font-size: 0.76rem;
+  font-weight: 950;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.bulletin-card strong,
+.bulletin-empty h3 {
+  margin-top: 10px;
+  color: var(--navy);
+  font-size: 1.2rem;
+  line-height: 1.15;
+}
+
+.bulletin-card time {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.bulletin-card small,
+.bulletin-empty p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.bulletin-empty code {
+  color: var(--navy);
+  font-weight: 850;
+}
+
+.bulletin-preview-card {
+  position: sticky;
+  top: 120px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: rgba(255, 248, 232, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.bulletin-preview-empty {
+  display: grid;
+  min-height: 560px;
+  align-content: center;
+  padding: 38px;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(217, 171, 84, 0.18), transparent 18rem),
+    linear-gradient(135deg, #ffffff, #fff3d0);
+}
+
+.bulletin-preview-empty h2,
+.bulletin-preview-header h2 {
+  margin: 0;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.8rem, 3vw, 3.2rem);
+  line-height: 0.98;
+}
+
+.bulletin-preview-empty p:not(.eyebrow),
+.bulletin-preview-header p:not(.eyebrow) {
+  color: var(--muted);
+}
+
+.bulletin-preview-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: start;
+  padding: 24px;
+  border-bottom: 1px solid var(--line);
+  background: white;
+}
+
+.bulletin-preview-header .button {
+  flex: 0 0 auto;
+}
+
+.bulletin-preview-content iframe {
+  display: block;
+  width: 100%;
+  height: min(760px, 72dvh);
+  border: 0;
+  background: #f4efe2;
 }
 
 .calendar-frame {
@@ -1245,8 +1394,13 @@ body.has-event-popup {
   .melkite-section,
   .connect-section,
   .bishop-detail,
+  .bulletins-page-section,
   .gallery-section-heading {
     grid-template-columns: 1fr;
+  }
+
+  .bulletin-preview-card {
+    position: static;
   }
 
   .date-list,
@@ -1408,6 +1562,7 @@ body.has-event-popup {
   .visit-section,
   .subpage-hero,
   .calendar-page-section,
+  .bulletins-page-section,
   .gallery-page-section,
   .bishop-detail {
     width: calc(100% - 24px);
@@ -1572,6 +1727,20 @@ body.has-event-popup {
   }
 
   .calendar-frame iframe {
+    height: 560px;
+  }
+
+  .bulletin-preview-header {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .bulletin-preview-empty {
+    min-height: 360px;
+    padding: 24px;
+  }
+
+  .bulletin-preview-content iframe {
     height: 560px;
   }
 

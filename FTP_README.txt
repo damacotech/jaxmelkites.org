@@ -5,12 +5,15 @@ Upload the contents of this folder into the website public web root:
 
 - index.html
 - calendar.html
+- bulletins.html
 - bishop.html
 - gallery.html
 - styles.css
 - script.js
+- bulletins.js
 - gallery.js
 - assets/
+- bulletins/
 - gallery/
 - tools/
 
@@ -23,8 +26,9 @@ Homepage updates included:
 
 - Consistent official name: Saint Thekla Melkite Catholic Community.
 - Conversion-first hero with liturgy time, location, Plan Your Visit, Get Directions, and Join Flocknote.
-- Upcoming Divine Liturgy dates from the public Google Calendar feed as of June 16, 2026.
+- Upcoming Divine Liturgy dates are generated automatically from the every-other-Sunday schedule so past dates disappear.
 - Restored standalone Calendar page with Google Calendar embed.
+- Added standalone Bulletins page with dated PDF preview.
 - Restored standalone Bishop page with official Eparchy links.
 - Separated Gallery page.
 - First Time Visiting section.
@@ -47,6 +51,36 @@ This package includes a real sync workflow and 36 locally downloaded Page photos
 
 The script securely derives a Page token in memory when given a managing user's token. It never writes the token to disk.
 The public gallery reads gallery/data/photos.json and opens each locally hosted image in an on-site photo viewer.
+
+Bulletin uploads
+================
+
+Static FTP hosting cannot list PDF files automatically, so each bulletin needs one data entry.
+
+1. Upload the PDF into:
+
+   assets/bulletins/
+
+2. Use this filename pattern:
+
+   YYYY-MM-DD-short-title.pdf
+
+3. Add the bulletin to:
+
+   bulletins/data/bulletins.json
+
+Example:
+
+[
+  {
+    "date": "2026-08-02",
+    "title": "Divine Liturgy Bulletin",
+    "description": "Sunday Divine Liturgy bulletin.",
+    "pdf": "assets/bulletins/2026-08-02-divine-liturgy.pdf"
+  }
+]
+
+The Bulletins page sorts entries by date and previews the selected PDF directly on the website.
 
 Automatic GitHub updates
 ========================
