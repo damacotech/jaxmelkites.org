@@ -1,10 +1,11 @@
 const bulletinsList = document.querySelector("[data-bulletins-list]");
-const previewEmpty = document.querySelector("[data-bulletin-empty]");
-const previewContent = document.querySelector("[data-bulletin-preview-content]");
+const previewModal = document.querySelector("[data-bulletin-modal]");
 const previewFrame = document.querySelector("[data-bulletin-preview]");
 const previewTitle = document.querySelector("[data-bulletin-preview-title]");
 const previewDate = document.querySelector("[data-bulletin-preview-date]");
 const previewDownload = document.querySelector("[data-bulletin-download]");
+const previewClose = document.querySelector("[data-bulletin-close]");
+let activeBulletinButton = null;
 
 const bulletinDateFormatter = new Intl.DateTimeFormat("en-US", {
   weekday: "long",
@@ -34,12 +35,10 @@ function normalizeBulletins(items) {
     });
 }
 
-function selectBulletin(bulletin, button) {
+function openBulletin(bulletin, button) {
   const title = bulletin.title || "Parish Bulletin";
   const date = formatBulletinDate(bulletin.date);
 
-  previewEmpty.hidden = true;
-  previewContent.hidden = false;
   previewTitle.textContent = title;
   previewDate.textContent = date;
   previewFrame.src = bulletin.pdf;
@@ -50,27 +49,47 @@ function selectBulletin(bulletin, button) {
     .forEach((activeButton) => activeButton.classList.remove("is-active"));
 
   button.classList.add("is-active");
+  activeBulletinButton = button;
+  previewModal.hidden = false;
+  document.body.classList.add("bulletin-open");
+  previewClose?.focus();
+}
+
+function closeBulletin() {
+  if (!previewModal || previewModal.hidden) return;
+
+  previewModal.hidden = true;
+  previewFrame.src = "";
+  document.body.classList.remove("bulletin-open");
+  activeBulletinButton?.focus();
 }
 
 function createBulletinCard(bulletin, index) {
   const button = document.createElement("button");
+  const preview = document.createElement("span");
   const eyebrow = document.createElement("span");
   const title = document.createElement("strong");
   const date = document.createElement("time");
   const description = document.createElement("small");
+  const action = document.createElement("span");
 
   button.type = "button";
   button.className = "bulletin-card";
   button.setAttribute("aria-label", `Preview ${bulletin.title || "bulletin"} from ${formatBulletinDate(bulletin.date)}`);
+
+  preview.className = "bulletin-card-preview";
+  preview.textContent = "PDF";
 
   eyebrow.textContent = index === 0 ? "Latest" : "Bulletin";
   title.textContent = bulletin.title || "Parish Bulletin";
   date.textContent = formatBulletinDate(bulletin.date);
   date.dateTime = bulletin.date;
   description.textContent = bulletin.description || "Preview or download the PDF bulletin.";
+  action.className = "bulletin-card-action";
+  action.textContent = "Open preview";
 
-  button.append(eyebrow, title, date, description);
-  button.addEventListener("click", () => selectBulletin(bulletin, button));
+  button.append(preview, eyebrow, title, date, description, action);
+  button.addEventListener("click", () => openBulletin(bulletin, button));
   return button;
 }
 
@@ -86,7 +105,6 @@ async function loadBulletins() {
 
     const cards = bulletins.map(createBulletinCard);
     bulletinsList.replaceChildren(...cards);
-    selectBulletin(bulletins[0], cards[0]);
   } catch (error) {
     bulletinsList.innerHTML = `
       <article class="bulletin-empty">
@@ -96,5 +114,15 @@ async function loadBulletins() {
     `;
   }
 }
+
+previewModal?.addEventListener("click", (event) => {
+  if (event.target === previewModal || event.target.closest("[data-bulletin-close]")) {
+    closeBulletin();
+  }
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeBulletin();
+});
 
 loadBulletins();

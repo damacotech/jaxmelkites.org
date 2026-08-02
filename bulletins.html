@@ -43,7 +43,7 @@
       <section class="subpage-hero bulletins-hero">
         <p class="eyebrow">Parish Bulletins</p>
         <h1>Bulletins organized by date.</h1>
-        <p>Preview the latest PDF bulletin directly on the site, download a copy, or browse older bulletins by date.</p>
+        <p>Browse bulletins by date, then open a clean on-site PDF preview when you want to read one.</p>
       </section>
 
       <section class="bulletins-page-section" data-bulletins-page>
@@ -51,7 +51,7 @@
           <div class="section-heading">
             <p class="eyebrow">Bulletin Archive</p>
             <h2>Latest first</h2>
-            <p>Each bulletin is listed by its service date. New bulletins can be added as PDFs and registered in the data file.</p>
+            <p>Tap a bulletin card to preview it without leaving the website.</p>
           </div>
           <div class="bulletins-list" data-bulletins-list aria-label="Bulletin list">
             <article class="bulletin-empty">
@@ -60,27 +60,23 @@
             </article>
           </div>
         </div>
-
-        <aside class="bulletin-preview-card" aria-label="Bulletin PDF preview">
-          <div class="bulletin-preview-empty" data-bulletin-empty>
-            <p class="eyebrow">PDF Preview</p>
-            <h2>Select a bulletin</h2>
-            <p>When bulletins are added, selecting a date will show the PDF here without leaving the website.</p>
-          </div>
-          <div class="bulletin-preview-content" data-bulletin-preview-content hidden>
-            <div class="bulletin-preview-header">
-              <div>
-                <p class="eyebrow">PDF Preview</p>
-                <h2 data-bulletin-preview-title>Bulletin</h2>
-                <p data-bulletin-preview-date></p>
-              </div>
-              <a class="button primary compact-button" data-bulletin-download href="#" target="_blank" rel="noopener noreferrer">Download PDF</a>
-            </div>
-            <iframe data-bulletin-preview title="Bulletin PDF preview"></iframe>
-          </div>
-        </aside>
       </section>
     </main>
+
+    <div class="bulletin-modal" data-bulletin-modal hidden>
+      <div class="bulletin-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="bulletin-modal-title">
+        <button class="bulletin-modal-close" type="button" aria-label="Close bulletin preview" title="Close" data-bulletin-close>&times;</button>
+        <div class="bulletin-modal-header">
+          <div>
+            <p class="eyebrow">PDF Preview</p>
+            <h2 id="bulletin-modal-title" data-bulletin-preview-title>Bulletin</h2>
+            <p data-bulletin-preview-date></p>
+          </div>
+          <a class="button primary compact-button" data-bulletin-download href="#" target="_blank" rel="noopener noreferrer">Download PDF</a>
+        </div>
+        <iframe data-bulletin-preview title="Bulletin PDF preview"></iframe>
+      </div>
+    </div>
 
     <footer class="site-footer">
       <div>
