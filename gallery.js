@@ -7,24 +7,34 @@ const lightboxDate = document.querySelector("[data-gallery-lightbox-date]");
 let galleryPhotos = [];
 let activePhotoIndex = 0;
 
-const dateFormatter = new Intl.DateTimeFormat("en-US", {
-  month: "short",
-  day: "numeric",
-  year: "numeric",
-});
+function getI18n() {
+  return window.saintTheklaI18n;
+}
+
+function t(value) {
+  return getI18n()?.translate(value) || value;
+}
+
+function getGalleryLocale() {
+  return getI18n()?.getLocale() || "en-US";
+}
 
 function formatDate(value) {
-  if (!value) return "Saint Thekla community";
+  if (!value) return t("Saint Thekla community");
   const date = new Date(value);
   return Number.isNaN(date.getTime())
-    ? "Saint Thekla community"
-    : dateFormatter.format(date);
+    ? t("Saint Thekla community")
+    : new Intl.DateTimeFormat(getGalleryLocale(), {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }).format(date);
 }
 
 function displayCaption(value) {
-  const caption = value || "Saint Thekla community photo";
-  if (caption === "Saint Thekla community photo") {
-    return "Community life at Saint Thekla";
+  const caption = value || t("Saint Thekla community photo");
+  if (caption === t("Saint Thekla community photo")) {
+    return t("Community life at Saint Thekla");
   }
   if (caption.length <= 120) return caption;
 
@@ -40,7 +50,7 @@ function updateLightbox(index) {
   activePhotoIndex = index;
   lightboxImage.src = photo.src;
   lightboxImage.alt = displayCaption(photo.caption);
-  lightboxCaption.textContent = photo.caption || "Saint Thekla community photo";
+  lightboxCaption.textContent = photo.caption || t("Saint Thekla community photo");
   lightboxDate.textContent = formatDate(photo.createdTime);
   lightboxDate.dateTime = photo.createdTime || "";
 }
@@ -77,7 +87,7 @@ function createPhotoCard(photo, index) {
   button.type = "button";
   button.className = "gallery-photo";
   button.dataset.galleryIndex = String(index);
-  button.setAttribute("aria-label", `Open photo: ${displayCaption(photo.caption)}`);
+  button.setAttribute("aria-label", `${t("Open photo:")} ${displayCaption(photo.caption)}`);
 
   image.src = photo.src;
   image.alt = displayCaption(photo.caption);
@@ -95,6 +105,26 @@ function createPhotoCard(photo, index) {
   return button;
 }
 
+function formatGalleryCount(count) {
+  const formattedCount = new Intl.NumberFormat(getGalleryLocale()).format(count);
+  if (getI18n()?.getLanguage() === "ar") {
+    return `${formattedCount} صورة من حياة الجماعة`;
+  }
+  return `${formattedCount} ${t("community photos")}`;
+}
+
+function renderGalleryPhotos() {
+  if (!galleryRoot || galleryPhotos.length === 0) return;
+
+  galleryRoot.replaceChildren(
+    ...galleryPhotos.map((photo, index) => createPhotoCard(photo, index)),
+  );
+  if (galleryCount) {
+    galleryCount.textContent = formatGalleryCount(galleryPhotos.length);
+  }
+  if (lightbox && !lightbox.hidden) updateLightbox(activePhotoIndex);
+}
+
 async function loadGallery() {
   if (!galleryRoot) return;
 
@@ -107,20 +137,15 @@ async function loadGallery() {
       throw new Error("Gallery data is empty");
     }
 
-    galleryRoot.replaceChildren(
-      ...galleryPhotos.map((photo, index) => createPhotoCard(photo, index)),
-    );
-    if (galleryCount) {
-      galleryCount.textContent = `${galleryPhotos.length} community photos`;
-    }
+    renderGalleryPhotos();
   } catch (error) {
     galleryRoot.innerHTML = `
       <div class="gallery-empty">
-        <h3>Gallery temporarily unavailable.</h3>
-        <p>The local photo gallery is temporarily unavailable.</p>
+        <h3>${t("Gallery temporarily unavailable.")}</h3>
+        <p>${t("The local photo gallery is temporarily unavailable.")}</p>
       </div>
     `;
-    if (galleryCount) galleryCount.textContent = "Community gallery";
+    if (galleryCount) galleryCount.textContent = t("Community gallery");
   }
 }
 
@@ -141,4 +166,5 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") moveLightbox(1);
 });
 
+window.addEventListener("saintthekla:languagechange", renderGalleryPhotos);
 loadGallery();

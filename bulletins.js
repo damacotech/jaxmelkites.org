@@ -1,11 +1,17 @@
 const bulletinsList = document.querySelector("[data-bulletins-list]");
+let loadedBulletins = [];
 
-const bulletinDateFormatter = new Intl.DateTimeFormat("en-US", {
-  weekday: "long",
-  month: "long",
-  day: "numeric",
-  year: "numeric",
-});
+function getI18n() {
+  return window.saintTheklaI18n;
+}
+
+function t(value) {
+  return getI18n()?.translate(value) || value;
+}
+
+function getBulletinLocale() {
+  return getI18n()?.getLocale() || "en-US";
+}
 
 function parseBulletinDate(value) {
   const [year, month, day] = String(value || "").split("-").map(Number);
@@ -15,7 +21,14 @@ function parseBulletinDate(value) {
 
 function formatBulletinDate(value) {
   const date = parseBulletinDate(value);
-  return date ? bulletinDateFormatter.format(date) : "Date not set";
+  return date
+    ? new Intl.DateTimeFormat(getBulletinLocale(), {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }).format(date)
+    : t("Date not set");
 }
 
 function getBulletinFileName(bulletin) {
@@ -55,23 +68,28 @@ function createBulletinCard(bulletin, index) {
 
   button.type = "button";
   button.className = "bulletin-card";
-  button.setAttribute("aria-label", `Open and download bulletin from ${formatBulletinDate(bulletin.date)}`);
+  button.setAttribute("aria-label", `${t("Open and download bulletin from")} ${formatBulletinDate(bulletin.date)}`);
 
   image.src = "./assets/hero-emblem.jpg";
   image.alt = "";
   image.loading = index === 0 ? "eager" : "lazy";
 
   details.className = "bulletin-card-details";
-  label.textContent = index === 0 ? "Latest bulletin" : "Bulletin";
+  label.textContent = index === 0 ? t("Latest bulletin") : t("Bulletin");
   date.textContent = formatBulletinDate(bulletin.date);
   date.dateTime = bulletin.date;
   action.className = "bulletin-card-action";
-  action.textContent = "Open PDF";
+  action.textContent = t("Open PDF");
 
   details.append(label, date, action);
   button.append(image, details);
   button.addEventListener("click", () => openAndDownloadBulletin(bulletin));
   return button;
+}
+
+function renderBulletinCards() {
+  if (!bulletinsList || loadedBulletins.length === 0) return;
+  bulletinsList.replaceChildren(...loadedBulletins.map((bulletin, index) => createBulletinCard(bulletin, index)));
 }
 
 async function loadBulletins() {
@@ -81,19 +99,17 @@ async function loadBulletins() {
     const response = await fetch("./bulletins/data/bulletins.json", { cache: "no-store" });
     if (!response.ok) throw new Error("Bulletin data not found");
 
-    const bulletins = normalizeBulletins(await response.json());
-    if (bulletins.length === 0) return;
-
-    const cards = bulletins.map(createBulletinCard);
-    bulletinsList.replaceChildren(...cards);
+    loadedBulletins = normalizeBulletins(await response.json());
+    renderBulletinCards();
   } catch (error) {
     bulletinsList.innerHTML = `
       <article class="bulletin-empty">
-        <h3>Bulletins temporarily unavailable.</h3>
-        <p>The bulletin archive could not be loaded.</p>
+        <h3>${t("Bulletins temporarily unavailable.")}</h3>
+        <p>${t("The bulletin archive could not be loaded.")}</p>
       </article>
     `;
   }
 }
 
+window.addEventListener("saintthekla:languagechange", renderBulletinCards);
 loadBulletins();
