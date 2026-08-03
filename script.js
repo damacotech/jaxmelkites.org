@@ -6,8 +6,7 @@ const cookieStorageKey = "saintTheklaCookieChoice";
 const languageStorageKey = "saintTheklaLanguage";
 const eventPopupImage = "assets/paraklesis-service-august-1-2026.jpg";
 const eventPopupExpiresAt = Date.parse("2026-08-02T00:00:00-04:00");
-const liturgyAnchorDate = "2026-06-21";
-const liturgyIntervalDays = 14;
+const liturgySundayOrdinals = [1, 3];
 const liturgyTimeLabel = "12:00 PM";
 const liturgyLocation = "Prince of Peace Catholic Church, 6320 Bennett Rd, Jacksonville, FL 32216";
 const supportedLanguages = new Set(["en", "ar"]);
@@ -44,7 +43,7 @@ const arabicTranslations = {
   "Add to Calendar": "أضف إلى التقويم",
   "Liturgy Schedule": "جدول القداس",
   "Clear dates. Simple next step.": "مواعيد واضحة. خطوة تالية بسيطة.",
-  "Divine Liturgy is normally every other Sunday at 12:00 PM at Prince of Peace Catholic Church.": "يُقام القداس الإلهي عادةً كل أحدين في الساعة ١٢:٠٠ ظهرًا في كنيسة أمير السلام الكاثوليكية.",
+  "Divine Liturgy is normally on the first and third Sundays of each month at 12:00 PM at Prince of Peace Catholic Church.": "يُقام القداس الإلهي عادةً في الأحد الأول والثالث من كل شهر في الساعة ١٢:٠٠ ظهرًا في كنيسة أمير السلام الكاثوليكية.",
   "View Full Calendar": "عرض التقويم الكامل",
   "Open Map": "افتح الخريطة",
   "Next": "القادم",
@@ -94,9 +93,9 @@ const arabicTranslations = {
   "Serve, invite, and give when ready.": "اخدم، وادعُ الآخرين، وقدّم عندما تكون مستعدًا.",
   "Donation options can be added when the community is ready. For now, invite a friend, volunteer, and help build a welcoming parish home.": "يمكن إضافة خيارات التبرع عندما تكون الجماعة جاهزة. في الوقت الحالي، ادعُ صديقًا، وتطوّع، وساعد في بناء بيت رعوي مرحّب.",
   "Prince of Peace Catholic Church, Jacksonville, FL": "كنيسة أمير السلام الكاثوليكية، جاكسونفيل، فلوريدا",
-  "Divine Liturgy every other Sunday at 12:00 PM": "القداس الإلهي كل أحدين في الساعة ١٢:٠٠ ظهرًا",
+  "Divine Liturgy first and third Sundays at 12:00 PM": "القداس الإلهي في الأحد الأول والثالث في الساعة ١٢:٠٠ ظهرًا",
   "Upcoming liturgies and parish gatherings.": "القداديس واللقاءات الرعوية القادمة.",
-  "Divine Liturgy is normally every other Sunday at 12:00 PM at Prince of Peace Catholic Church in Jacksonville.": "يُقام القداس الإلهي عادةً كل أحدين في الساعة ١٢:٠٠ ظهرًا في كنيسة أمير السلام الكاثوليكية في جاكسونفيل.",
+  "Divine Liturgy is normally on the first and third Sundays of each month at 12:00 PM at Prince of Peace Catholic Church in Jacksonville.": "يُقام القداس الإلهي عادةً في الأحد الأول والثالث من كل شهر في الساعة ١٢:٠٠ ظهرًا في كنيسة أمير السلام الكاثوليكية في جاكسونفيل.",
   "Next Divine Liturgy Dates": "مواعيد القداس الإلهي القادمة",
   "Confirmed upcoming Sundays": "الآحاد القادمة المؤكدة",
   "Only upcoming Divine Liturgy dates are shown. Past dates are removed automatically.": "تظهر فقط مواعيد القداس الإلهي القادمة. تتم إزالة المواعيد الماضية تلقائيًا.",
@@ -174,7 +173,7 @@ const arabicTranslations = {
   "Close popup": "أغلق النافذة",
   "Saint Thekla Paraklesis Service invitation for Saturday August 1 2026 at 6:30 PM at Christ the Prince of Peace": "دعوة جماعة القديسة تقلا إلى صلاة البراكليسي يوم السبت ١ آب ٢٠٢٦ الساعة ٦:٣٠ مساءً في كنيسة المسيح أمير السلام",
   "Saint Thekla Melkite Catholic Community | Melkite Catholic Church in Jacksonville, FL": "جماعة القديسة تقلا الملكية الكاثوليكية | كنيسة ملكية كاثوليكية في جاكسونفيل، فلوريدا",
-  "Saint Thekla Melkite Catholic Community is a Melkite Catholic community in Jacksonville, Florida. Join Divine Liturgy every other Sunday at 12:00 PM.": "جماعة القديسة تقلا الملكية الكاثوليكية هي جماعة ملكية كاثوليكية في جاكسونفيل، فلوريدا. انضم إلى القداس الإلهي كل أحدين في الساعة ١٢:٠٠ ظهرًا.",
+  "Saint Thekla Melkite Catholic Community is a Melkite Catholic community in Jacksonville, Florida. Join Divine Liturgy on the first and third Sundays of each month at 12:00 PM.": "جماعة القديسة تقلا الملكية الكاثوليكية هي جماعة ملكية كاثوليكية في جاكسونفيل، فلوريدا. انضم إلى القداس الإلهي في الأحد الأول والثالث من كل شهر في الساعة ١٢:٠٠ ظهرًا.",
   "Calendar | Saint Thekla Melkite Catholic Community": "التقويم | جماعة القديسة تقلا الملكية الكاثوليكية",
   "Calendar for Saint Thekla Melkite Catholic Community in Jacksonville, Florida, including upcoming Divine Liturgy dates.": "تقويم جماعة القديسة تقلا الملكية الكاثوليكية في جاكسونفيل، فلوريدا، بما في ذلك مواعيد القداس الإلهي القادمة.",
   "Our Bishop | Saint Thekla Melkite Catholic Community": "مطراننا | جماعة القديسة تقلا الملكية الكاثوليكية",
@@ -378,17 +377,6 @@ function syncChrome() {
   topButton.classList.toggle("is-visible", window.scrollY > 520);
 }
 
-function createLocalDate(dateString, hour = 12) {
-  const [year, month, day] = dateString.split("-").map(Number);
-  return new Date(year, month - 1, day, hour, 0, 0);
-}
-
-function addDays(date, days) {
-  const nextDate = new Date(date);
-  nextDate.setDate(nextDate.getDate() + days);
-  return nextDate;
-}
-
 function formatCalendarDate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -410,18 +398,30 @@ function createCalendarUrl(date) {
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
+function getSundayOfMonth(year, monthIndex, ordinal) {
+  const firstDay = new Date(year, monthIndex, 1, 12, 0, 0);
+  const daysUntilFirstSunday = (7 - firstDay.getDay()) % 7;
+  return new Date(year, monthIndex, 1 + daysUntilFirstSunday + (ordinal - 1) * 7, 12, 0, 0);
+}
+
+function getLiturgyDatesForMonth(year, monthIndex) {
+  return liturgySundayOrdinals.map((ordinal) => getSundayOfMonth(year, monthIndex, ordinal));
+}
+
 function getUpcomingLiturgies(count) {
-  const now = new Date();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
   const upcoming = [];
-  let candidate = createLocalDate(liturgyAnchorDate);
+  let monthCursor = new Date(today.getFullYear(), today.getMonth(), 1, 12, 0, 0);
 
-  while (candidate < now) {
-    candidate = addDays(candidate, liturgyIntervalDays);
-  }
+  while (upcoming.length < count) {
+    getLiturgyDatesForMonth(monthCursor.getFullYear(), monthCursor.getMonth())
+      .filter((date) => date >= today)
+      .forEach((date) => {
+        if (upcoming.length < count) upcoming.push(date);
+      });
 
-  for (let index = 0; index < count; index += 1) {
-    upcoming.push(new Date(candidate));
-    candidate = addDays(candidate, liturgyIntervalDays);
+    monthCursor = new Date(monthCursor.getFullYear(), monthCursor.getMonth() + 1, 1, 12, 0, 0);
   }
 
   return upcoming;
