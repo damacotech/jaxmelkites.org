@@ -23,6 +23,7 @@ const arabicTranslations = {
   "Gallery": "المعرض",
   "Connect": "تواصل",
   "Visit": "الزيارة",
+  "St Thekla church physical location for now at Prince of Peace Catholic Church": "رعية القديسة تقلا للروم الملكيين الكاثوليك تقام الصلوات بكنيسة امير السلام للروم الكاثوليك بجاكسونفيل",
   "Join WhatsApp": "انضم إلى واتساب",
   "Join our WhatsApp community": "انضم إلى مجتمع واتساب الخاص بنا",
   "Next Divine Liturgy": "القداس الإلهي القادم",
