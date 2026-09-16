@@ -16,7 +16,7 @@ const arabicTranslations = {
   "Saint Thekla": "القديسة تقلا",
   "Saint Thekla Melkite Catholic Community": "جماعة القديسة تقلا الملكية الكاثوليكية",
   "Home": "الرئيسية",
-  "Request Prayer": "طلب صلاة",
+  "Request A prayer": "طلب صلاة",
   "Calendar": "التقويم",
   "First Time?": "أول زيارة؟",
   "Bulletins": "النشرات",

@@ -1884,6 +1884,15 @@ body.has-event-popup {
   white-space: nowrap;
 }
 
+.prayer-link-image {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
 .prayer-link:hover {
   background: var(--cream);
 }
@@ -1923,16 +1932,44 @@ body.has-event-popup {
 @media (max-width: 720px) {
   .prayer-link {
     padding: 8px;
-    font-size: 1.35rem;
-  }
-
-  .prayer-link-label {
-    display: none;
+    font-size: 0.82rem;
   }
 }
 
 @media (max-width: 520px) {
   .brand span {
     display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-header {
+    gap: 4px;
+  }
+
+  .brand img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .prayer-link {
+    gap: 5px;
+    padding: 6px;
+    font-size: 0.7rem;
+  }
+
+  .prayer-link-image {
+    width: 28px;
+    height: 28px;
+  }
+
+  .language-toggle {
+    width: 56px;
+    font-size: 0.6rem;
+  }
+
+  .menu-toggle {
+    flex-basis: 36px;
+    width: 36px;
   }
 }
