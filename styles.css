@@ -1872,21 +1872,21 @@ body.has-event-popup {
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 5px;
   min-width: 44px;
   min-height: 44px;
-  padding: 10px 14px;
+  padding: 6px;
   border-radius: 999px;
   color: var(--navy);
   background: var(--gold-light);
-  font-size: 0.92rem;
+  font-size: 0.7rem;
   font-weight: 800;
   white-space: nowrap;
 }
 
 .prayer-link-image {
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
   flex: 0 0 auto;
   object-fit: cover;
   object-position: center;
@@ -1902,7 +1902,7 @@ body.has-event-popup {
   outline-offset: 3px;
 }
 
-@media (min-width: 721px) {
+@media (min-width: 721px) and (max-width: 1400px) {
   .menu-toggle {
     display: block;
     flex: 0 0 44px;
@@ -1929,16 +1929,10 @@ body.has-event-popup {
   }
 }
 
-@media (max-width: 720px) {
-  .prayer-link {
-    padding: 8px;
-    font-size: 0.82rem;
+@media (max-width: 520px) {
+  .brand span {
+    display: none;
   }
-}
-
-/* Use the same icon-only branding and menu layout at every screen size. */
-.brand span {
-  display: none;
 }
 
 @media (max-width: 520px) {
@@ -1949,17 +1943,6 @@ body.has-event-popup {
   .brand img {
     width: 32px;
     height: 32px;
-  }
-
-  .prayer-link {
-    gap: 5px;
-    padding: 6px;
-    font-size: 0.7rem;
-  }
-
-  .prayer-link-image {
-    width: 28px;
-    height: 28px;
   }
 
   .language-toggle {
