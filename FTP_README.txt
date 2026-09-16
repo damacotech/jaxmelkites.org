@@ -14,6 +14,7 @@ Upload the contents of this folder into the website public web root:
 - gallery.js
 - assets/
 - bulletins/
+- requestprayer/
 - gallery/
 - tools/
 
@@ -97,3 +98,9 @@ Name the secret:
 FACEBOOK_ACCESS_TOKEN
 
 Never paste the access token into this website folder or commit it to Git.
+
+Prayer requests
+===============
+Upload requestprayer/index.html with the updated HTML pages, styles.css, and script.js.
+The /requestprayer address redirects to https://jaxmelkites.flocknote.com/signup/274375.
+The fixed header includes a prayer button on every page, also visible with the mobile menu closed.
