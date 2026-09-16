@@ -4,8 +4,9 @@ const nav = document.querySelector("[data-nav]");
 const topButton = document.querySelector("[data-top]");
 const cookieStorageKey = "saintTheklaCookieChoice";
 const languageStorageKey = "saintTheklaLanguage";
-const eventPopupImage = "assets/paraklesis-service-august-1-2026.jpg";
-const eventPopupExpiresAt = Date.parse("2026-08-02T00:00:00-04:00");
+const eventPopupImage = "assets/saint-thekla-great-vespers-september-19-2026.jpg";
+// Midnight keeps the popup active through 11:59 PM on September 19 in New York.
+const eventPopupExpiresAt = Date.parse("2026-09-20T00:00:00-04:00");
 const liturgySundayOrdinals = [1, 3];
 const liturgyTimeLabel = "12:00 PM";
 const liturgyLocation = "Prince of Peace Catholic Church, 6320 Bennett Rd, Jacksonville, FL 32216";
@@ -169,9 +170,9 @@ const arabicTranslations = {
   "Open photo:": "افتح الصورة:",
   "Saint Thekla Divine Liturgy": "قداس القديسة تقلا الإلهي",
   "Melkite Catholic Divine Liturgy with Saint Thekla Melkite Catholic Community.": "القداس الإلهي الملكي الكاثوليكي مع جماعة القديسة تقلا الملكية الكاثوليكية.",
-  "Paraklesis Service invitation": "دعوة صلاة البراكليسي",
+  "Saint Thekla Great Vespers invitation": "دعوة صلاة الغروب الكبرى للقديسة تقلا",
   "Close popup": "أغلق النافذة",
-  "Saint Thekla Paraklesis Service invitation for Saturday August 1 2026 at 6:30 PM at Christ the Prince of Peace": "دعوة جماعة القديسة تقلا إلى صلاة البراكليسي يوم السبت ١ آب ٢٠٢٦ الساعة ٦:٣٠ مساءً في كنيسة المسيح أمير السلام",
+  "Saint Thekla Great Vespers Service invitation for Saturday September 19 2026 at 6:00 PM at Prince of Peace Catholic Church": "دعوة جماعة القديسة تقلا إلى صلاة الغروب الكبرى يوم السبت ١٩ أيلول ٢٠٢٦ الساعة ٦:٠٠ مساءً في كنيسة أمير السلام الكاثوليكية",
   "Saint Thekla Melkite Catholic Community | Melkite Catholic Church in Jacksonville, FL": "جماعة القديسة تقلا الملكية الكاثوليكية | كنيسة ملكية كاثوليكية في جاكسونفيل، فلوريدا",
   "Saint Thekla Melkite Catholic Community is a Melkite Catholic community in Jacksonville, Florida. Join Divine Liturgy on the first and third Sundays of each month at 12:00 PM.": "جماعة القديسة تقلا الملكية الكاثوليكية هي جماعة ملكية كاثوليكية في جاكسونفيل، فلوريدا. انضم إلى القداس الإلهي في الأحد الأول والثالث من كل شهر في الساعة ١٢:٠٠ ظهرًا.",
   "Calendar | Saint Thekla Melkite Catholic Community": "التقويم | جماعة القديسة تقلا الملكية الكاثوليكية",
@@ -504,11 +505,11 @@ function createEventPopup() {
   popup.className = "event-popup";
   popup.setAttribute("role", "dialog");
   popup.setAttribute("aria-modal", "true");
-  popup.setAttribute("aria-label", "Paraklesis Service invitation");
+  popup.setAttribute("aria-label", "Saint Thekla Great Vespers invitation");
   popup.innerHTML = `
     <div class="event-popup-dialog">
       <button type="button" class="event-popup-close" data-event-popup-close aria-label="Close popup">×</button>
-      <img class="event-popup-image" src="${eventPopupImage}" alt="Saint Thekla Paraklesis Service invitation for Saturday August 1 2026 at 6:30 PM at Christ the Prince of Peace">
+      <img class="event-popup-image" src="${eventPopupImage}" alt="Saint Thekla Great Vespers Service invitation for Saturday September 19 2026 at 6:00 PM at Prince of Peace Catholic Church">
     </div>
   `;
 
@@ -539,6 +540,7 @@ function createEventPopup() {
   document.body.classList.add("has-event-popup");
   window.requestAnimationFrame(() => popup.classList.add("is-visible"));
   window.addEventListener("keydown", handleKeydown);
+  popup.querySelector("[data-event-popup-close]").focus();
   expirationTimer = window.setTimeout(closePopup, eventPopupExpiresIn);
 }
 
