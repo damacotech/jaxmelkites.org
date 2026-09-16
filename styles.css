@@ -1902,7 +1902,7 @@ body.has-event-popup {
   outline-offset: 3px;
 }
 
-@media (min-width: 721px) and (max-width: 1400px) {
+@media (min-width: 721px) {
   .menu-toggle {
     display: block;
     flex: 0 0 44px;
@@ -1936,10 +1936,9 @@ body.has-event-popup {
   }
 }
 
-@media (max-width: 520px) {
-  .brand span {
-    display: none;
-  }
+/* Use the same icon-only branding and menu layout at every screen size. */
+.brand span {
+  display: none;
 }
 
 @media (max-width: 520px) {
